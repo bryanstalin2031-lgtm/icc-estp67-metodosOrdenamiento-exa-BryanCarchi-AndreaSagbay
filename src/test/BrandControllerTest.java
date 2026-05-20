@@ -13,6 +13,29 @@ import java.lang.reflect.Method;
 
 public class BrandControllerTest {
 
+    public Brand[] sortSelectionDesc(Brand[] brands) {
+
+        boolean x;
+        for (int i = 0; i < brands.length - 1; i++) {
+            x = false;
+
+            for (int j = 0; j < brands.length - 1 - i; j++) {
+
+                if (brands[j].getTotalValidYears() > brands[j + 1].getTotalValidYears()) {
+                    Brand aux = brands[j];
+                    brands[j] = brands[j + 1];
+                    brands[j + 1] = aux;
+                    x = true;
+
+                }
+            }
+            if (!x) {
+                break;
+            }
+        }
+        return brands;
+    }
+
     private BrandController controller;
     private static final String FILA_ESTUDIANTE = cargarFilaEstudiante();
 
