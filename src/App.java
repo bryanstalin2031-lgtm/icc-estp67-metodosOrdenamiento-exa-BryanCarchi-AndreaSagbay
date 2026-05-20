@@ -1,13 +1,61 @@
+import controllers.BrandController;
 import models.Brand;
 import models.CarModel;
 import models.CarYear;
+import test.TestData;
 
 public class App {
         public static void main(String[] args) throws Exception {
                 System.out.println("Examen interciclo de Estructuras de Datos");
                 System.out.println("====Configurar studente.env====");
 
+                BrandController brandController = new BrandController();
+                Brand[] brands = TestData.createBrands();
+
+                // Imprimir Estado Original
+                System.out.println("Original:");
+                for (Brand b : brands) {
+                        if (b != null) {
+                                System.out.println(b.getBrandName() + " – Años válidos: " + b.getTotalValidYears());
+                        }
+                }
+                System.out.println();
+
+                // 2. Ordenar con el algoritmo de la Fila D
+                brands = brandController.sortBubbleDesc(brands);
+
+                // Imprimir Estado Ordenado
+                System.out.println("Ordenado por Bubble Sort descendente:");
+                for (Brand b : brands) {
+                        if (b != null) {
+                                System.out.println(b.getBrandName() + " – Años válidos: " + b.getTotalValidYears());
+                        }
+                }
+                System.out.println();
+
+                // 3. Primera Búsqueda (Fila D: 7 años)
+                System.out.println("Buscar marca con 7 años válidos que se ordenaron de mayor a menor:");
+                Brand resultado1 = brandController.binarySearchByValidYears(brands, 7, false);
+                if (resultado1 != null) {
+                        System.out.println("Encontrada: Marca: " + resultado1.getBrandName() + ", Total de años válidos: "
+                                        + resultado1.getTotalValidYears());
+                } else {
+                        System.out.println("No encontrada");
+                }
+                System.out.println();
+
+                // 4. Segunda Búsqueda (Fila D: 4 años)
+                System.out.println("Buscar marca con 4 años válidos que se ordenaron de mayor a menor:");
+                Brand resultado2 = brandController.binarySearchByValidYears(brands, 4, false);
+                if (resultado2 != null) {
+                        System.out.println("Encontrada: Marca: " + resultado2.getBrandName() + ", Total de años válidos: "
+                                        + resultado2.getTotalValidYears());
+                } else {
+                        System.out.println("No encontrada");
+                }
         }
+
+        
 
         /**
          * Crea un arreglo de marcas de ejemplo para pruebas
